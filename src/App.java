@@ -21,7 +21,7 @@ public class App {
 			System.out.println("11 .. Odstranit studenta");
             System.out.println("12 .. Koniec");
         	
-			volba=input.pouzeCelaCisla(sc);
+			volba=Input.pouzeCelaCisla(sc);
 			switch(volba)
 			{
 				case 1:
@@ -31,22 +31,22 @@ public class App {
 					System.out.println("Vyberte obor studenta:");
 					System.out.println("1 .. Telekomunikacie");
 					System.out.println("2 .. Kyberbezpecnost");
-					volba=input.pouzeCelaCisla(sc);
+					volba=Input.pouzeCelaCisla(sc);
 					//Dokoncit vytvorenie studenta
 					break;
 				case 3:
 					System.out.println("Zadajte ID studenta:");
-					volba=input.pouzeCelaCisla(sc);
+					volba=Input.pouzeCelaCisla(sc);
 					//Dokoncit zadanie znamky
 					break;
 				case 4:
 					System.out.println("Zadajte ID studenta:");
-					volba=input.pouzeCelaCisla(sc);
+					volba=Input.pouzeCelaCisla(sc);
 					//Dokoncit vypis informacii o studentovi
 					break;
 				case 5:
 					System.out.println("Zadajte ID studenta:");
-					volba=input.pouzeCelaCisla(sc);
+					volba=Input.pouzeCelaCisla(sc);
 					//Dokoncit urobenie schopnosti studenta
 					break;
 				case 6:
@@ -65,17 +65,17 @@ public class App {
 					break;
 				case 9:
 					System.out.println("Zadajte ID studenta:");
-					volba=input.pouzeCelaCisla(sc);
+					volba=Input.pouzeCelaCisla(sc);
 					//Dokoncit ulozenie studenta do suboru
 					break;
 				case 10:
 					System.out.println("Zadajte ID studenta:");
-					volba=input.pouzeCelaCisla(sc);
+					volba=Input.pouzeCelaCisla(sc);
 					//Dokoncit nacitanie studenta zo suboru
 					break;
 				case 11:
 					System.out.println("Zadajte ID studenta:");
-					volba=input.pouzeCelaCisla(sc);
+					volba=Input.pouzeCelaCisla(sc);
 					//Dokoncit odstranenie studenta
 					break;
                 case 12:
@@ -85,7 +85,7 @@ public class App {
                     } else {
                         System.out.println("Chyba pri ukladani dát.");
                         System.out.println("Zelate si napriek tomu program ukoncit? (1/0)");
-                        volba=input.pouzeCelaCisla(sc);
+                        volba=Input.pouzeCelaCisla(sc);
                         if (volba == 1) {
                             run = false;
                         } 
