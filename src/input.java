@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
-    public class input {
+    public class Input {
+        
         public static int pouzeCelaCisla(Scanner sc) 
         {
             int cislo = 0;
@@ -17,4 +18,7 @@ import java.util.Scanner;
             }
             return cislo;
 	}
+
+    
 }
+
