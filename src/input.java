@@ -1,24 +1,43 @@
 import java.util.Scanner;
 
     public class Input {
-        public static int pouzeCelaCisla(Scanner sc) 
-        {
-            int cislo = 0;
-            try
-            {
-                cislo = sc.nextInt();
-            }
-            catch(Exception e)
-            {
-                System.out.println("Nastala vynimka typu "+e.toString());
-                System.out.println("zadejte prosim cele cislo ");
-                sc.nextLine();
-                cislo = pouzeCelaCisla(sc);
-            }
-            return cislo;
-	    }
+        public static int pouzeCelaCisla(Scanner sc, int min, int max) {
+			int cislo = 0;
+			try
+			{
+				cislo = sc.nextInt();
+				if (cislo < min || cislo > max) {
+					System.out.println("Zadali ste cislo mimo rozsah, zadajte prosim znova.");
+					cislo = pouzeCelaCisla(sc, min, max);
+				}
+			}
+			catch(Exception e)
+			{
+				System.out.println("Nastala vynimka typu "+e.toString());
+				System.out.println("zadejte prosim cele cislo ");
+				sc.nextLine();
+				cislo = pouzeCelaCisla(sc, min, max);
+			}
+			return cislo;
+		}
 
-        public static boolean mainMenu(Scanner sc) {
+		public static int pouzeCelaCisla(Scanner sc) {
+			int cislo = 0;
+			try
+			{
+				cislo = sc.nextInt();
+			}
+			catch(Exception e)
+			{
+				System.out.println("Nastala vynimka typu "+e.toString());
+				System.out.println("zadejte prosim cele cislo ");
+				sc.nextLine();
+				cislo = pouzeCelaCisla(sc);
+			}
+			return cislo;
+		}
+
+    	public static boolean mainMenu(Scanner sc) {
             int volba;
             System.out.println("Vyberte pozadovanu cinnost:");
             System.out.println("1 .. Vytvorenie novej databaze studentov");
@@ -34,7 +53,7 @@ import java.util.Scanner;
             System.out.println("11 .. Odstranit studenta");
             System.out.println("12 .. Koniec");
 
-            volba=Input.pouzeCelaCisla(sc);
+            volba=Input.pouzeCelaCisla(sc, 1, 12);
 			switch(volba)
 			{
 				case 1:
@@ -44,7 +63,7 @@ import java.util.Scanner;
 					System.out.println("Vyberte obor studenta:");
 					System.out.println("1 .. Telekomunikacie");
 					System.out.println("2 .. Kyberbezpecnost");
-					volba=Input.pouzeCelaCisla(sc);
+					volba=Input.pouzeCelaCisla(sc, 1, 2);
 					//Dokoncit vytvorenie studenta
 					break;
 				case 3:
@@ -99,7 +118,7 @@ import java.util.Scanner;
                     else {
                         System.out.println("Chyba pri ukladani dát.");
                         System.out.println("Zelate si napriek tomu program ukoncit? (1/0)");
-                        volba=Input.pouzeCelaCisla(sc);
+                        volba=Input.pouzeCelaCisla(sc, 0, 1);
                         if (volba == 1) {
                             return false;
                         } 
