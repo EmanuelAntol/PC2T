@@ -6,6 +6,7 @@ public class TeleStudent extends Student {
 
     @Override
     public String dovednost() {
-        return "Telekomunikace";
+        
+        return Morse.toMorse(getName1() + " " + getName2());
 
 }}

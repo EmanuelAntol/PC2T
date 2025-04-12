@@ -4,6 +4,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         Scanner sc=new Scanner(System.in);
         Database Database = new Database();
+        Student student;
 		boolean run = true;
         
 
@@ -19,7 +20,7 @@ public class App {
             System.out.println("7 .. Vypis pocet studentov v oboroch");
             System.out.println("8 .. Ulozit studenta do suboru");
             System.out.println("9 .. Nacitat studenta zo suboru");
-            System.out.println("10 .. Odstranit studenta");
+            System.out.println("10 .. Odstranit studenta z databazy");
             System.out.println("11 .. Koniec");
 
             volba=Input.pouzeCelaCisla(sc, 1, 12);
@@ -54,9 +55,10 @@ public class App {
 					volba=Input.pouzeCelaCisla(sc);
 					System.out.println("Zadajte znamku studenta:");
                     int znamka=Input.pouzeCelaCisla(sc, 1, 5);
+                    student = Database.getStudent(volba);
                     
-                    if (Database.getStudent(volba) != null) {
-                        Database.getStudent(volba).addZnamka(znamka);
+                    if (student != null) {
+                        student.addZnamka(znamka);
                         System.out.println("Znamka bola uspesne pridana. \n");
                     } else {
                         System.out.println("Student s ID " + volba + " neexistuje. \n");
@@ -67,26 +69,53 @@ public class App {
 				case 3:
 					System.out.println("Zadajte ID studenta:");
 					volba=Input.pouzeCelaCisla(sc);
-					//Dokoncit vypis informacii o studentovi
+                    student = Database.getStudent(volba);
+
+                    if (student != null) {
+                        System.out.println("ID: " + volba);
+                        System.out.println("Meno: " + student.getName1());
+                        System.out.println("Priezvisko: " + student.getName2());
+                        System.out.println("Rok narodenia: " + student.getRocnik());
+                        System.out.println("Priemer: " + student.getPriemer());
+                    } else {
+                        System.out.println("Student s ID " + volba + " neexistuje. \n");
+                    }
+
+
+                    sc.nextLine();
 					break;
+
+
 				case 4:
-					System.out.println("Zadajte ID studenta:");
-					volba=Input.pouzeCelaCisla(sc);
-					//Dokoncit urobenie schopnosti studenta
+                System.out.println("Zadajte ID studenta:");
+                volba=Input.pouzeCelaCisla(sc);
+                student = Database.getStudent(volba);
+
+                if (student != null) {
+                    System.out.println(student.dovednost() + "\n");
+                }
+                else {
+                    System.out.println("Student s ID " + volba + " neexistuje. \n");
+                }
+
+
+                    sc.nextLine();
 					break;
+
 				case 5:
 					System.out.println("Vsetci studenti:");
-					//Dokoncit vypis vsetkych studentov
+					//Dokoncit vypis vsetkych studentov abecedne
+                    
 					break;
 				case 6:
-					System.out.println("Priemer oboru telekomunikacie je     .");
-					System.out.println("Priemer oboru kyberbezpecnost je     .");
-					//Dokoncit vypis priemeru podla oboru
+					System.out.println("Priemer oboru telekomunikacie je " + Database.getrpiemer()[0] + ".");
+                    System.out.println("Priemer oboru kyberbezpecnost je " + Database.getrpiemer()[1] + ". \n");
+
 					break;
 				case 7:
-					System.out.println("Pocet studentov v obore telekomunikacie je     .");
-					System.out.println("Pocet studentov v obore kyberbezpecnost je     .");
-					//Dokoncit vypis pocet studentov v oboroch
+					System.out.println("Pocet studentov v obore telekomunikacie je " + Database.getPocetStudentov()[0] + ".");
+					System.out.println("Pocet studentov v obore kyberbezpecnost je  " + Database.getPocetStudentov()[1] + ". \n");
+
 					break;
 				case 8:
 					System.out.println("Zadajte ID studenta:");
@@ -99,9 +128,19 @@ public class App {
 					//Dokoncit nacitanie studenta zo suboru
 					break;
 				case 10:
-					System.out.println("Zadajte ID studenta:");
-					volba=Input.pouzeCelaCisla(sc);
-					//Dokoncit odstranenie studenta
+                    System.out.println("Zadajte ID studenta:");
+                    volba=Input.pouzeCelaCisla(sc);
+                    student = Database.getStudent(volba);
+
+                    if (student != null) {
+                        Database.removeStudent(volba);
+                        System.out.println("Student bol uspesne odstraneny. \n");
+                    } else {
+                        System.out.println("Student s ID " + volba + " neexistuje. \n");
+                    }
+
+
+                    sc.nextLine();
 					break;
                 case 11:
                     if (Database.saveDatabaseToFile()) {
@@ -122,7 +161,7 @@ public class App {
                     break;
                     
             }
-            System.out.println("Stlacite Enter pre pokracovanie.");
+            System.out.println("Stlacte klavesu pre pokracovanie.");
             sc.nextLine();
         
     	}
