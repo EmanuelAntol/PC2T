@@ -15,13 +15,9 @@ public class Database {
         return lastId;
     }
 
-    public boolean addStudent(Student student, int skupina) {
-        if (student != null) {
-            lastId++;
-            databazaStudentov.put(lastId, student);
-            return true;
-        }
-        return false;
+    public void addStudent(Student student) {
+        lastId++;
+        databazaStudentov.put(lastId, student);
     }
 
     public boolean removeStudent(int ID) {
@@ -88,7 +84,7 @@ public class Database {
         return true; 
     }
 
-    public static boolean saveDatabaseToFile() {
+    public boolean saveDatabaseToFile() {
         return true; 
     }
 
