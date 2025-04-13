@@ -42,12 +42,12 @@ public class App {
 
                     if (volba == 1) {
                         Database.addStudent(new TeleStudent(meno, priezvisko, rokNarodenia));
-                    } else if (volba == 2) {
+                    } 
+                    else if (volba == 2) {
                         Database.addStudent(new KyberStudent(meno, priezvisko, rokNarodenia));
                     }
-                    System.out.println("\n Student bol uspesne vytvoreny. Studentovi bolo pridelene ID:  " + Database.getLastId()+ " \n");    
+                    System.out.println("\nStudent bol uspesne vytvoreny. Studentovi bolo pridelene ID:  " + Database.getLastId());    
 					
-                    sc.nextLine();
 					break;
 
 				case 2:
@@ -59,32 +59,28 @@ public class App {
                     
                     if (student != null) {
                         student.addZnamka(znamka);
-                        System.out.println("Znamka bola uspesne pridana. \n");
-                    } else {
-                        System.out.println("Student s ID " + volba + " neexistuje. \n");
+                        System.out.println("Znamka bola uspesne pridana.");
+                    } 
+                    else {
+                        System.out.println("Student s ID " + volba + " neexistuje.");
                     }
 
-                    sc.nextLine();
 					break;
+
 				case 3:
 					System.out.println("Zadajte ID studenta:");
 					volba=Input.pouzeCelaCisla(sc);
                     student = Database.getStudent(volba);
+                    System.out.println("\n");
 
                     if (student != null) {
-                        System.out.println("ID: " + volba);
-                        System.out.println("Meno: " + student.getName1());
-                        System.out.println("Priezvisko: " + student.getName2());
-                        System.out.println("Rok narodenia: " + student.getRocnik());
-                        System.out.println("Priemer: " + student.getPriemer());
-                    } else {
-                        System.out.println("Student s ID " + volba + " neexistuje. \n");
+                        System.out.println(student.toString());
+                    } 
+                    else {
+                        System.out.println("Student s ID " + volba + " neexistuje.");
                     }
 
-
-                    sc.nextLine();
 					break;
-
 
 				case 4:
                 System.out.println("Zadajte ID studenta:");
@@ -92,41 +88,52 @@ public class App {
                 student = Database.getStudent(volba);
 
                 if (student != null) {
-                    System.out.println(student.dovednost() + "\n");
+                    System.out.println(student.dovednost());
                 }
                 else {
-                    System.out.println("Student s ID " + volba + " neexistuje. \n");
+                    System.out.println("Student s ID " + volba + " neexistuje.");
                 }
 
-
-                    sc.nextLine();
-					break;
+				break;
 
 				case 5:
-					System.out.println("Vsetci studenti:");
-					//Dokoncit vypis vsetkych studentov abecedne
-                    
+					System.out.println("Vsetci studenti v abecednom poradí: \n");
+                    if (Database.getAllStudents().isEmpty()) {
+                        System.out.println("Databaza studentov je prazdna.");
+                    } 
+                    else {
+                        System.out.println("\n");
+                        for (Student std : Database.getAllStudents()) {
+                            System.out.println(std.toString());
+                        }
+                    }
+					
 					break;
+
 				case 6:
 					System.out.println("Priemer oboru telekomunikacie je " + Database.getrpiemer()[0] + ".");
-                    System.out.println("Priemer oboru kyberbezpecnost je " + Database.getrpiemer()[1] + ". \n");
+                    System.out.println("Priemer oboru kyberbezpecnost je " + Database.getrpiemer()[1] + ".");
 
 					break;
+
 				case 7:
 					System.out.println("Pocet studentov v obore telekomunikacie je " + Database.getPocetStudentov()[0] + ".");
-					System.out.println("Pocet studentov v obore kyberbezpecnost je  " + Database.getPocetStudentov()[1] + ". \n");
+					System.out.println("Pocet studentov v obore kyberbezpecnost je  " + Database.getPocetStudentov()[1] + ".");
 
 					break;
+
 				case 8:
 					System.out.println("Zadajte ID studenta:");
 					volba=Input.pouzeCelaCisla(sc);
 					//Dokoncit ulozenie studenta do suboru
 					break;
+
 				case 9:
 					System.out.println("Zadajte ID studenta:");
 					volba=Input.pouzeCelaCisla(sc);
 					//Dokoncit nacitanie studenta zo suboru
 					break;
+
 				case 10:
                     System.out.println("Zadajte ID studenta:");
                     volba=Input.pouzeCelaCisla(sc);
@@ -134,15 +141,16 @@ public class App {
 
                     if (student != null) {
                         Database.removeStudent(volba);
-                        System.out.println("Student bol uspesne odstraneny. \n");
-                    } else {
-                        System.out.println("Student s ID " + volba + " neexistuje. \n");
+                        System.out.println("Student bol uspesne odstraneny.");
+                    } 
+                    else {
+                        System.out.println("Student s ID " + volba + " neexistuje.");
                     }
 
-
-                    sc.nextLine();
 					break;
+
                 case 11:
+                    System.out.println("\n");
                     if (Database.saveDatabaseToFile()) {
                         System.out.println("Data boli uspesne ulozene.");
                         run = false;
@@ -158,10 +166,12 @@ public class App {
                             System.out.println("Pokracujete v praci s databazou.");
                         }
                     }    
+
                     break;
-                    
             }
+            System.out.println("\n");
             System.out.println("Stlacte klavesu pre pokracovanie.");
+            sc.nextLine();
             sc.nextLine();
         
     	}

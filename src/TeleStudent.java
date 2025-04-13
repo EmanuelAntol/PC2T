@@ -6,7 +6,7 @@ public class TeleStudent extends Student {
 
     @Override
     public String dovednost() {
-        
         return Morse.toMorse(getName1() + " " + getName2());
 
-}}
+    }
+}

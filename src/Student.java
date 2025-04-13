@@ -1,9 +1,10 @@
 import java.util.List;
 import java.util.ArrayList;
 
-public abstract class Student {
-    private String name1;
-    private String name2;
+public abstract class Student implements Comparable<Student> {
+    protected String name1;
+    protected String name2;
+    private int id;
     private int rocnik;
     List<Integer> znamky;
 
@@ -38,6 +39,14 @@ public abstract class Student {
         this.rocnik = rocnik;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void addZnamka(int znamka) {
         znamky.add(znamka);
     }
@@ -51,6 +60,35 @@ public abstract class Student {
             suma += znamka;
         }
         return suma / znamky.size();
+    }
+
+    @Override
+    public int compareTo(Student other) {
+        if (this.name2.compareTo(other.name2) < 0) {
+            return -1;
+        } 
+        else if (this.name2.compareTo(other.name1) > 0) {
+            return 1;
+        } 
+        else {
+            return 0;
+        }
+    
+    }
+
+    @Override
+    public String toString() {
+
+        if (this instanceof TeleStudent) {
+            return "ID: " + id + ", Meno: " + name1 + ", Priezvisko: " + name2 + ", Rocnik: " + rocnik + ", Priemer: " + getPriemer() + ", Obor: Telekomunikacie";
+        } 
+        else if (this instanceof KyberStudent) {
+            return "ID: " + id + ", Meno: " + name1 + ", Priezvisko: " + name2 + ", Rocnik: " + rocnik + ", Priemer: " + getPriemer() + ", Obor: Kyberbezpecnost";
+        }
+        else {
+            return null;
+        }
+          
     }
 
     public abstract String dovednost();

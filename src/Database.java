@@ -1,5 +1,6 @@
 import java.util.Map;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Database {
 
@@ -17,6 +18,7 @@ public class Database {
     public void addStudent(Student student) {
         lastId++;
         databazaStudentov.put(lastId, student);
+        databazaStudentov.get(lastId).setId(lastId);
     }
 
     public boolean removeStudent(int ID) {
@@ -43,7 +45,8 @@ public class Database {
             if (student instanceof TeleStudent) {
                 priemer[0] += student.getPriemer();
                 pocetTele++;
-            } else if (student instanceof KyberStudent) {
+            } 
+            else if (student instanceof KyberStudent) {
                 priemer[1] += student.getPriemer();
                 pocetKyber++;
             }
@@ -76,6 +79,12 @@ public class Database {
         }
 
         return pocet;
+    }
+
+    public ArrayList<Student> getAllStudents() {
+        ArrayList<Student> abecedne = new ArrayList<Student>(databazaStudentov.values());
+        abecedne.sort(Student::compareTo);
+        return abecedne;
     }
 
     public boolean saveStudentToFile(int ID) {

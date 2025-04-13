@@ -5,8 +5,16 @@ public class KyberStudent extends Student {
     }
 
     @Override
-    public String dovednost() {
-        return "Kyberbezpecnost";
+    public int hashCode() {
+        String meno = name1.toLowerCase() + " " + name2.toLowerCase();
+        return meno.hashCode();
     }
+
+    @Override
+    public String dovednost() {
+        Integer result = hashCode();
+        return result.toString();
+    }
+
 
 }
