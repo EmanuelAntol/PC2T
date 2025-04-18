@@ -151,9 +151,79 @@ public class Database {
         }
         return "Ulozenie prebehlo uspesne";
     }
+    
+    public String loadStudentFromFile(Integer ID) {
+        if (databazaStudentov.containsKey(ID)) {
+            return "Student s ID " + ID + " uz existuje. Pred nacitanim zo suboru ho prosim odstrante.";
+        }
+        File subor;
+        Scanner sc_subor;
+        String obor;
+        String name1;
+        String name2;
+        int rocnik;
+        int read_id;
+        String znamkaString;
 
-    public boolean loadStudentFromFile(String subNazov){
-        return true;
+        try {
+            subor = new File(ID.toString() + ".txt");
+            sc_subor = new Scanner(subor);
+        }
+        catch (Exception e) {
+            subor = null;
+            sc_subor = null;
+            return "Subor s ID " + ID + " neexistuje.";
+        }
+
+        try {
+            String obory [] = {"Telekomunikacie", "Kyberbezpecnost"};
+            obor = sc_subor.nextLine().split(": ")[1].trim().toString();
+            if (obor.equals(obory[0])) {
+            }
+            else if (obor.equals (obory[1])) {  
+            }
+            else {
+                return "Obor v subore je poskodeny.";
+            }
+
+            read_id = Integer.parseInt(sc_subor.nextLine().split(": ")[1]);
+            if (read_id != ID) {
+                return "ID v subore sa nezhoduje so zadanym ID studenta.";
+            }
+
+            name1 = sc_subor.nextLine().split(": ")[1];
+            name2 = sc_subor.nextLine().split(": ")[1];
+            rocnik = Integer.parseInt(sc_subor.nextLine().split(": ")[1]);
+            
+            if (obor.equals("Telekomunikacie")) {
+                databazaStudentov.put(ID, new TeleStudent(name1, name2, rocnik));
+                databazaStudentov.get(read_id).setId(read_id);
+
+            } 
+            else if (obor.equals("Kyberbezpecnost")) {
+                databazaStudentov.put(ID, new KyberStudent(name1, name2, rocnik));
+                databazaStudentov.get(read_id);
+            }
+
+            znamkaString = sc_subor.nextLine().split(": ")[1];
+            String[] znamkyArray = znamkaString.split("");
+            for (String znamka : znamkyArray){
+
+                if (znamka.equals("1") || znamka.equals("2") || znamka.equals("3") || znamka.equals("4") || znamka.equals("5")) {
+                    databazaStudentov.get(read_id).addZnamka(Integer.parseInt(znamka.trim()));
+                }
+            }
+           
+        }
+        catch (Exception e) {
+            return "Subor je poskodeny.";
+        }
+        finally {
+            sc_subor.close();
+        }
+        
+        sc_subor.close();
+        return "Student bol uspesne nacitany zo suboru a pridany do databaze.";
     }
 
     public boolean saveDatabaseToFile() {

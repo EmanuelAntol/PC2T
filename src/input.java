@@ -51,6 +51,6 @@ import java.util.Scanner;
 			return text;
 		}
 
-
+		
 }
 

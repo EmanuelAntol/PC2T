@@ -132,9 +132,9 @@ public class App {
 				case 9:
 					System.out.println("Zadajte ID studenta:");
 					volba=Input.pouzeCelaCisla(sc);
-					//Dokoncit nacitanie studenta zo suboru
+                    System.out.println(Database.loadStudentFromFile(volba));
 					break;
-
+                    
 				case 10:
                     System.out.println("Zadajte ID studenta:");
                     volba=Input.pouzeCelaCisla(sc);
@@ -170,7 +170,7 @@ public class App {
 
                     break;
             }
-            
+
             System.out.println("\n");
             System.out.println("Stlacte klavesu pre pokracovanie.");
             sc.nextLine();
