@@ -1,0 +1,6 @@
+Obor: Telekomunikacie
+ID: 1
+name1: Emo
+name2: Antol
+rokNarodenia: 2222
+znamky: []

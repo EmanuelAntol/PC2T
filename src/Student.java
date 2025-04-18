@@ -51,6 +51,10 @@ public abstract class Student implements Comparable<Student> {
         znamky.add(znamka);
     }
 
+    public List<Integer> getZnamky() {
+        return znamky;
+    }
+
     public float getPriemer() {
         if (znamky.isEmpty()) {
             return 0;

@@ -111,8 +111,8 @@ public class App {
 					break;
 
 				case 6:
-					System.out.println("Priemer oboru telekomunikacie je " + Database.getrpiemer()[0] + ".");
-                    System.out.println("Priemer oboru kyberbezpecnost je " + Database.getrpiemer()[1] + ".");
+					System.out.println("Priemer oboru telekomunikacie je " + Database.getpiemer()[0] + ".");
+                    System.out.println("Priemer oboru kyberbezpecnost je " + Database.getpiemer()[1] + ".");
 
 					break;
 
@@ -125,7 +125,8 @@ public class App {
 				case 8:
 					System.out.println("Zadajte ID studenta:");
 					volba=Input.pouzeCelaCisla(sc);
-					//Dokoncit ulozenie studenta do suboru
+					System.out.println(Database.saveStudentToFile(volba, sc));
+
 					break;
 
 				case 9:
@@ -169,6 +170,7 @@ public class App {
 
                     break;
             }
+            
             System.out.println("\n");
             System.out.println("Stlacte klavesu pre pokracovanie.");
             sc.nextLine();

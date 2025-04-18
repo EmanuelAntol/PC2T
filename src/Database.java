@@ -1,5 +1,10 @@
 import java.util.Map;
+import java.util.Scanner;
 import java.util.HashMap;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Database {
@@ -36,7 +41,7 @@ public class Database {
         return null;
     }
 
-    public float[] getrpiemer() {
+    public float[] getpiemer() {
         float[] priemer = new float[2];
         int pocetTele = 0;
         int pocetKyber = 0;
@@ -87,9 +92,68 @@ public class Database {
         return abecedne;
     }
 
-    public boolean saveStudentToFile(int ID) {
+    public String saveStudentToFile(Integer ID, Scanner sc) {
+        if (!databazaStudentov.containsKey(ID)) {
+            return "Student s ID " + ID + " neexistuje.";
+        }
+
+        Student student = databazaStudentov.get(ID);
+        File subor = new File(ID.toString() + ".txt");
+        FileWriter fw = null;
+	    BufferedWriter bw = null;
+
+        if (!subor.exists()){
+            try {
+                subor.createNewFile();
+            } 
+            catch (Exception e) {
+                return "Chyba pri vytvarani suboru.";
+            }
+        }
+        else {
+            System.out.println("Subor uz existuje. Zelate si ho prepisat?.");
+            System.out.println("1. Ano\n2. Nie");
+            int volba = Input.pouzeCelaCisla(sc, 1, 2);
+            if (volba == 2){
+                return "Ziadne data neboli zapisane";
+            }
+        }
         
-        return true; 
+
+        try {
+            fw = new FileWriter(subor);
+            bw = new BufferedWriter(fw);
+
+            if (student instanceof TeleStudent) {
+                bw.write("Obor: Telekomunikacie\n");
+            } 
+            else if (student instanceof KyberStudent) {
+                bw.write("Obor: Kyberbezpecnost\n");
+            }
+            bw.write("ID: " + student.getId() + "\n");
+            bw.write("name1: " + student.getName1() + "\n");
+            bw.write("name2: " + student.getName2() + "\n");
+            bw.write("rokNarodenia: " + student.getRocnik() + "\n");
+            bw.write("znamky: " + student.getZnamky() + "\n");
+
+        }
+        catch (Exception e) {
+            return "Chyba pri zapisovani do suboru.";
+        }
+        finally{
+            try {
+			    bw.close();
+			    fw.close();
+		    }
+		    catch (IOException e){
+			    return "Nastala neocakavana chyba";
+		    }
+        }
+        return "Ulozenie prebehlo uspesne";
+    }
+
+    public boolean loadStudentFromFile(String subNazov){
+        return true;
     }
 
     public boolean saveDatabaseToFile() {
