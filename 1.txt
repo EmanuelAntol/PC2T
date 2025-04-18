@@ -1,6 +1,0 @@
-Obor: Telekomunikacie
-ID: 1
-name1: Emo
-name2: Antol
-rokNarodenia: 2003
-znamky: [1, 3]

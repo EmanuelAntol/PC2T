@@ -6,11 +6,15 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.sql.*;
 
 public class Database {
 
     private int lastId = 0;
     private Map<Integer, Student> databazaStudentov;
+    private Connection connection = null;
+
+    
 
     Database() {
         databazaStudentov = new HashMap<Integer, Student>();
@@ -50,6 +54,8 @@ public class Database {
             if (student instanceof TeleStudent) {
                 priemer[0] += student.getPriemer();
                 pocetTele++;
+
+                //fixnut nulove pocty znamok 
             } 
             else if (student instanceof KyberStudent) {
                 priemer[1] += student.getPriemer();
@@ -226,7 +232,51 @@ public class Database {
         return "Student bol uspesne nacitany zo suboru a pridany do databaze.";
     }
 
-    public boolean saveDatabaseToFile() {
+    public boolean getConnection() {
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database", "username", "password");
+        }
+        catch (Exception e) {
+            connection = null;
+            return false;
+        }
+        return true;
+    }
+
+    public boolean loadDatabaseFromSql(){
+
+        if (connection == null) {
+            return false;
+        }
+        
+        ResultSet set = Queries.getAllStudents(connection);
+        if (set == null){
+            return false;
+        }
+
+        try {
+            while (set.next()){
+                int ID = set.getInt("id");
+                this.lastId = ID;
+                String name1 = set.getString("name1");
+                String name2 = set.getString("name2");
+                int rocnik = set.getInt("rocnik");
+                //Dokocit nacitanie z sql
+            }
+            
+            }
+        catch (Exception e){
+            return false;
+            }
+
+        return true;
+    }
+
+    public boolean saveDatabaseToSql() {
+        if (connection == null) {
+            return false;
+        }
+
         return true; 
     }
 

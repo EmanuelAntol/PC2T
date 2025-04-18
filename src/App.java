@@ -2,12 +2,23 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception {
+        System.out.println("\n");
         Scanner sc=new Scanner(System.in);
         Database Database = new Database();
         Student student;
+        boolean loadedFromSql;
 		boolean run = true;
-        
 
+        Database.getConnection();
+        loadedFromSql = Database.loadDatabaseFromSql();
+        if (!loadedFromSql) {
+
+            System.out.println("Data neboli nacitane z SQL. Pracujete s lokalnou databazou!");
+            System.out.println("Stlacte Enter pre pokracovanie.  \n");
+            sc.nextLine();
+        }
+        
+        
         while (run) {
             int volba;
             System.out.println("Vyberte pozadovanu cinnost:");
@@ -133,6 +144,7 @@ public class App {
 					System.out.println("Zadajte ID studenta:");
 					volba=Input.pouzeCelaCisla(sc);
                     System.out.println(Database.loadStudentFromFile(volba));
+                    
 					break;
                     
 				case 10:
@@ -152,8 +164,32 @@ public class App {
 
                 case 11:
                     System.out.println("\n");
-                    if (Database.saveDatabaseToFile()) {
-                        System.out.println("Data boli uspesne ulozene.");
+                    
+                    if (!loadedFromSql) {
+                        System.out.println("Zelate si pokusit ulozit data do SQL databaze? (1/0)");
+                        volba=Input.pouzeCelaCisla(sc, 0, 1);
+                        if (volba == 1) {
+                            Database.getConnection();
+                            if (Database.saveDatabaseToSql()) {
+                                    System.out.println("\nData boli uspesne ulozene.");
+                                    run = false;
+                                    break;
+                            }
+                            
+                            System.out.println("\nChyba pri ukladani dát.");
+                            run = false;
+                            break;
+                            
+                        } 
+						else if (volba == 0) {
+                            run = false;
+                            break;
+                        }
+                    }
+
+
+                    if (Database.saveDatabaseToSql()) {
+                        System.out.println("\nData boli uspesne ulozene.");
                         run = false;
                     } 
                     else {
@@ -164,7 +200,7 @@ public class App {
                             run = false;
                         } 
 						else if (volba == 0) {
-                            System.out.println("Pokracujete v praci s databazou.");
+                            System.out.println("\nPokracujete v praci s databazou.");
                         }
                     }    
 
@@ -172,7 +208,7 @@ public class App {
             }
 
             System.out.println("\n");
-            System.out.println("Stlacte klavesu pre pokracovanie.");
+            System.out.println("Stlacte Enter pre pokracovanie.");
             sc.nextLine();
             sc.nextLine();
         
